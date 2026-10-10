@@ -1,0 +1,291 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>LearnMate AI</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>
+:root{--p:#38BDF8;--s:#7DD3FC;--a:#2563EB;--bg:#F0F9FF;--card:#fff;--lav:#EDE9FE;--t:#0F172A;--m:#64748B;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,"Plus Jakarta Sans",system-ui,sans-serif;color:var(--t);background:linear-gradient(120deg,#F0F9FF,#E0F2FE,#EDE9FE,#F0F9FF);background-size:300% 300%;animation:bg 14s ease infinite;min-height:100vh}
+@keyframes bg{50%{background-position:100% 50%}}
+.bub{position:fixed;border-radius:50%;background:rgba(56,189,248,.15);animation:fl 9s ease-in-out infinite;z-index:0;pointer-events:none}
+@keyframes fl{50%{transform:translateY(-30px) translateX(12px)}}
+.view{display:none;position:relative;z-index:1;animation:in .5s ease}.view.on{display:block}
+@keyframes in{from{opacity:0;transform:translateY(14px)}}
+nav.top{display:flex;align-items:center;justify-content:space-between;padding:14px 5vw;background:rgba(255,255,255,.7);backdrop-filter:blur(12px);position:sticky;top:0;z-index:5}
+.logo{font-weight:800;font-size:20px;color:var(--a)}.logo span{color:var(--p)}
+.links{display:flex;gap:20px;align-items:center}.links a{color:var(--m);text-decoration:none;font-weight:500;cursor:pointer}.links a:hover{color:var(--a)}
+.btn{border:0;border-radius:12px;padding:11px 20px;font-weight:600;font-size:15px;cursor:pointer;position:relative;overflow:hidden;transition:transform .15s,box-shadow .2s;font-family:inherit}
+.pri{background:linear-gradient(135deg,var(--p),var(--a));color:#fff;box-shadow:0 0 0 0 rgba(56,189,248,.6);animation:glow 2.5s infinite}
+@keyframes glow{50%{box-shadow:0 0 18px 4px rgba(56,189,248,.45)}}
+.sec{background:#fff;color:var(--a);border:1.5px solid var(--s)}.btn:hover{transform:translateY(-2px)}.btn:active{transform:scale(.95)}
+.rip{position:absolute;border-radius:50%;background:rgba(255,255,255,.6);transform:scale(0);animation:rp .6s linear;pointer-events:none}
+@keyframes rp{to{transform:scale(4);opacity:0}}
+.hero{display:grid;grid-template-columns:1.1fr 1fr;gap:30px;align-items:center;padding:60px 5vw}
+h1{font-size:clamp(32px,5vw,54px);line-height:1.1;margin:0 0 14px}h1 em{font-style:normal;background:linear-gradient(90deg,var(--p),var(--a));-webkit-background-clip:text;color:transparent}
+.hero p{color:var(--m);font-size:18px}.mascot{font-size:120px;text-align:center;animation:fl 4s ease-in-out infinite}
+.fc{position:absolute;background:rgba(255,255,255,.8);backdrop-filter:blur(8px);padding:10px 14px;border-radius:14px;box-shadow:0 8px 24px rgba(37,99,235,.15);font-weight:600;font-size:14px;animation:fl 6s infinite}
+.card{background:var(--card);border-radius:20px;padding:22px;box-shadow:0 6px 24px rgba(37,99,235,.08);transition:transform .25s,box-shadow .25s}.card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(37,99,235,.15)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
+section.s{padding:40px 5vw}h2{font-size:28px;margin:0 0 20px}.rv{opacity:0;transform:translateY(20px);transition:.6s}.rv.v{opacity:1;transform:none}
+.ico{font-size:34px}.foot{padding:30px 5vw;color:var(--m);text-align:center;font-size:14px}
+.auth{max-width:460px;margin:30px auto;padding:0 16px}.auth .card{padding:28px}
+label{display:block;font-size:13px;font-weight:600;margin:12px 0 5px}
+input,select,textarea{width:100%;padding:11px 13px;border:1.5px solid #E0E7FF;border-radius:12px;font:inherit;background:#fff;color:var(--t)}
+input:focus,select:focus,textarea:focus{outline:0;border-color:var(--p);box-shadow:0 0 0 3px rgba(56,189,248,.25)}
+.err{color:#DC2626;font-size:13px;min-height:18px;margin-top:8px}.ok{color:#059669}
+.meter{height:6px;border-radius:6px;background:#E2E8F0;margin-top:6px;overflow:hidden}.meter i{display:block;height:100%;width:0;transition:.3s}
+.note{background:var(--lav);border-radius:12px;padding:10px 12px;font-size:12.5px;color:#4C1D95;margin-top:12px}
+.chk{display:flex;gap:8px;align-items:flex-start;font-weight:400;font-size:13px}.chk input{width:auto;margin-top:3px}
+.app{display:grid;grid-template-columns:230px 1fr;min-height:100vh;transition:grid-template-columns .3s}.app.col{grid-template-columns:66px 1fr}
+.side{background:rgba(255,255,255,.85);backdrop-filter:blur(12px);padding:16px 10px;position:sticky;top:0;height:100vh;overflow:hidden}
+.side button.nv{display:flex;gap:12px;align-items:center;width:100%;border:0;background:none;padding:11px 12px;border-radius:12px;cursor:pointer;font:inherit;color:var(--m);text-align:left;white-space:nowrap;transition:.2s}
+.side button.nv:hover,.side button.nv.on{background:var(--lav);color:var(--a)}.app.col .lb{display:none}
+.main{padding:22px 4vw;max-width:1100px;width:100%}.pg{display:none}.pg.on{display:block;animation:in .4s}
+.bar{height:10px;border-radius:10px;background:#E0F2FE;overflow:hidden}.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--p),var(--a));border-radius:10px;width:0;transition:width 1.2s}
+.ring{--v:0;width:110px;height:110px;border-radius:50%;background:conic-gradient(var(--a) calc(var(--v)*1%),#E0F2FE 0);display:grid;place-items:center;transition:--v 1s}.ring b{background:#fff;width:84px;height:84px;border-radius:50%;display:grid;place-items:center}
+.tag{display:inline-block;background:#E0F2FE;color:var(--a);padding:3px 10px;border-radius:20px;font-size:12px;font-weight:600}.demo{background:#FEF3C7;color:#92400E}
+.chat{height:340px;overflow:auto;display:flex;flex-direction:column;gap:10px;padding:8px}
+.msg{max-width:80%;padding:11px 14px;border-radius:16px;white-space:pre-wrap;animation:in .3s}.me{align-self:flex-end;background:linear-gradient(135deg,var(--p),var(--a));color:#fff}.ai{background:#fff;box-shadow:0 2px 10px rgba(0,0,0,.06)}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}.row>*{flex:1;min-width:110px}.chip{cursor:pointer;background:var(--lav);padding:7px 12px;border-radius:20px;font-size:13px;flex:none}
+.opt{display:block;width:100%;text-align:left;margin:8px 0;padding:12px;border:1.5px solid #E0E7FF;border-radius:12px;background:#fff;cursor:pointer;font:inherit;transition:.2s}.opt:hover{border-color:var(--p);transform:translateX(4px)}.opt.good{background:#D1FAE5;border-color:#10B981}.opt.bad{background:#FEE2E2;border-color:#EF4444}
+.dots span{display:inline-block;width:7px;height:7px;background:var(--p);border-radius:50%;margin:0 2px;animation:fl 1s infinite}.dots span:nth-child(2){animation-delay:.2s}.dots span:nth-child(3){animation-delay:.4s}
+.drop{border:2px dashed var(--s);border-radius:16px;padding:30px;text-align:center;color:var(--m);cursor:pointer}
+.pw{position:relative}.pw input{padding-right:46px}.eye{position:absolute;right:6px;top:50%;transform:translateY(-50%);border:0;background:none;font-size:18px;cursor:pointer;padding:6px;border-radius:8px;line-height:1}.eye:hover{background:var(--lav)}.eye:focus-visible{outline:2px solid var(--p)}
+.menu{display:none;background:none;border:0;font-size:24px;cursor:pointer}canvas#cf{position:fixed;inset:0;pointer-events:none;z-index:50}
+.sk{height:14px;border-radius:8px;background:linear-gradient(90deg,#E0F2FE,#fff,#E0F2FE);background-size:200%;animation:sh 1.2s infinite}@keyframes sh{to{background-position:-200%}}
+@media(max-width:760px){.hero{grid-template-columns:1fr}.links a{display:none}.menu{display:block}.app{grid-template-columns:1fr!important}.side{position:fixed;left:-240px;width:230px;z-index:20;transition:left .3s}.side.open{left:0}.app.col .lb{display:inline}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+</style></head><body>
+<div class="bub" style="width:120px;height:120px;left:6%;top:20%"></div><div class="bub" style="width:70px;height:70px;right:10%;top:55%;animation-delay:2s"></div><div class="bub" style="width:160px;height:160px;right:30%;top:8%;animation-delay:4s"></div>
+<canvas id="cf"></canvas>
+
+<!-- LANDING -->
+<div class="view on" id="v-home">
+<nav class="top"><div class="logo">🎓 Learn<span>Mate</span> AI</div><div class="links"><a href="#feat">Features</a><a href="#subj">Subjects</a><a href="#how">How It Works</a><a onclick="go('login')">Login</a><button class="btn pri" onclick="go('reg')">Start Learning Free</button></div></nav>
+<div class="hero"><div><h1>Your Personal <em>AI Tutor</em>, Anytime, Anywhere.</h1><p>Learn smarter, understand faster, and build confidence with personalized AI-powered learning.</p><button class="btn pri" onclick="go('reg')">Start Learning</button> <a href="#feat"><button class="btn sec">Explore Features</button></a></div>
+<div style="position:relative;height:300px"><div class="mascot">🤖📘</div><div class="fc" style="left:0;top:20px">➗ Mathematics</div><div class="fc" style="right:0;top:60px;animation-delay:1s">⚛️ Physics</div><div class="fc" style="left:10%;bottom:20px;animation-delay:2s">🧪 Chemistry</div><div class="fc" style="right:5%;bottom:0;animation-delay:3s">📈 Progress 72%</div></div></div>
+<section class="s" id="feat"><h2>Everything you need to learn</h2><div class="grid rv"><div class="card"><div class="ico">💬</div><h3>AI Chat</h3><p>Friendly step-by-step explanations.</p></div><div class="card"><div class="ico">📷</div><h3>Image Solver</h3><p>Upload a question photo.</p></div><div class="card"><div class="ico">🌐</div><h3>Multilingual</h3><p>English, Telugu, Hindi & more.</p></div><div class="card"><div class="ico">🎯</div><h3>Quizzes</h3><p>Gamified practice with badges.</p></div><div class="card"><div class="ico">📊</div><h3>Progress</h3><p>See strengths and weak topics.</p></div></div></section>
+<section class="s" id="subj"><h2>Pick a subject</h2><div class="grid rv"><div class="card" style="background:#E0F2FE"><div class="ico">➗</div><h3>Mathematics</h3></div><div class="card" style="background:#EDE9FE"><div class="ico">⚛️</div><h3>Physics</h3></div><div class="card" style="background:#DCFCE7"><div class="ico">🧪</div><h3>Chemistry</h3></div></div></section>
+<section class="s" id="how"><h2>How it works</h2><div class="grid rv"><div class="card"><div class="ico">1️⃣</div><h3>Ask a Question</h3></div><div class="card"><div class="ico">2️⃣</div><h3>Understand the Concept</h3></div><div class="card"><div class="ico">3️⃣</div><h3>Practise and Improve</h3></div></div></section>
+<div class="foot">© LearnMate AI · Project info · Contact · AI answers need the backend server running on port 8000.</div></div>
+
+<!-- REGISTER -->
+<div class="view" id="v-reg"><div class="auth"><div class="logo" style="text-align:center;cursor:pointer" onclick="go('home')">🎓 Learn<span>Mate</span> AI</div>
+<div class="card"><h2 style="margin-bottom:4px">Create your account</h2><p style="color:var(--m);margin:0">We only ask for what we need.</p>
+<label>Full name</label><input id="rn" maxlength="60" autocomplete="name">
+<label>Email</label><input id="re" type="email" maxlength="120" autocomplete="email">
+<div class="row"><div><label>Grade</label><select id="rg"><option>6</option><option>7</option><option>8</option><option>9</option><option selected>10</option><option>11</option><option>12</option></select></div><div><label>Age group</label><select id="ra"><option value="u13">Under 13</option><option value="13" selected>13–17</option><option value="18">18+</option></select></div></div>
+<div class="row"><div><label>Language</label><select id="rl"><option>English</option><option>Telugu</option><option>Hindi</option><option>Tamil</option></select></div><div><label>School (optional)</label><input id="rs" maxlength="80"></div></div>
+<div id="gw" style="display:none"><label>Parent/guardian email (required under 13)</label><input id="rge" type="email" maxlength="120"></div>
+<label>Password</label><input id="rp" type="password" autocomplete="new-password" maxlength="64"><div class="meter"><i id="mt"></i></div><small id="mtt" style="color:var(--m)">Min 10 chars: upper, lower, number, symbol</small>
+<label>Confirm password</label><input id="rc" type="password" autocomplete="new-password" maxlength="64">
+<label class="chk"><input type="checkbox" id="rk"> I agree to the Privacy Policy. My details are used only to personalise learning and are never sold.</label>
+<div class="err" id="rerr"></div><button class="btn pri" style="width:100%" onclick="register()">Create Account</button>
+<div class="note">🔒 Never share your password. Don't enter phone, address or ID numbers. Passwords are salted + hashed (PBKDF2) and never stored in plain text.</div>
+<p style="text-align:center;font-size:14px">Have an account? <a href="#" onclick="go('login');return false" style="color:var(--a)">Log in</a></p></div></div></div>
+
+<!-- LOGIN -->
+<div class="view" id="v-login"><div class="auth" style="margin-top:60px"><div class="logo" style="text-align:center;cursor:pointer" onclick="go('home')">🎓 Learn<span>Mate</span> AI</div>
+<div class="card"><h2>Welcome back</h2><label>Email</label><input id="le" type="email" autocomplete="email"><label>Password</label><input id="lp" type="password" autocomplete="current-password">
+<div class="err" id="lerr"></div><button class="btn pri" style="width:100%" id="lb" onclick="login()">Log In</button>
+<div class="note">After 5 wrong attempts login locks for 60 seconds. Sessions auto-expire after 30 minutes of inactivity. Always log out on shared computers.</div>
+<p style="text-align:center;font-size:14px">New here? <a href="#" onclick="go('reg');return false" style="color:var(--a)">Create account</a></p></div></div></div>
+
+<!-- APP -->
+<div class="view" id="v-app"><div class="app" id="app">
+<aside class="side" id="side"><div class="logo" style="padding:6px 12px 14px">🎓 <span class="lb">Learn<span>Mate</span></span></div><div id="nav"></div>
+<button class="nv" onclick="logout()"><span>🚪</span><span class="lb">Log out</span></button></aside>
+<div class="main"><div style="display:flex;gap:10px;align-items:center"><button class="menu" onclick="$('#side').classList.toggle('open')">☰</button><button class="btn sec" style="padding:6px 12px" onclick="$('#app').classList.toggle('col')">⇔</button><span class="tag demo">Demo data — not real progress</span></div>
+
+<div class="pg on" id="p-dash"><h2 id="wb" style="margin-top:18px"></h2><p style="color:var(--m);margin-top:-12px">Small steps every day lead to big results. 🌟</p>
+<div class="card" style="background:linear-gradient(135deg,var(--p),var(--a));color:#fff"><h3>Continue Learning</h3><p>Quadratic Equations · Mathematics · Lesson 4</p><button class="btn" style="background:#fff;color:var(--a)" onclick="pg('tutor')">Resume</button></div><br>
+<div class="card" id="up"><h3>📎 Upload &amp; Ask</h3><p style="color:var(--m);margin-top:-6px">Add images, videos or text files, ask your question, and get a step-by-step answer.</p>
+<div class="drop" id="dz" tabindex="0" role="button">⬆️ Drag &amp; drop or tap to upload<br><small>Images (PNG/JPG/WebP, max 5MB) · Videos (max 50MB) · Text, CSV, code files · up to 4 files</small></div><input type="file" id="fi" multiple accept="image/png,image/jpeg,image/webp,video/*,.txt,.md,.csv,.json,.py,.js,.html,text/plain" hidden>
+<div id="pv" class="row"></div><textarea id="uq" rows="2" maxlength="500" placeholder="What do you want to know? (optional)"></textarea>
+<div class="row"><select id="us"><option>Mathematics</option><option>Physics</option><option>Chemistry</option><option>Other</option></select><button class="btn pri" id="ub" onclick="solve()">Get Answer</button></div>
+<div class="err" id="ierr"></div><div id="ua" class="msg ai" style="display:none;max-width:100%"></div></div><br>
+<div class="grid"><div class="card"><b>Daily goal</b><br><br><div class="ring" id="rg1"><b>0%</b></div></div><div class="card"><b>Lessons</b><h2>24</h2><b>🔥 Streak</b><h2>6 days</h2></div>
+<div class="card"><b>Mathematics</b><div class="bar"><i data-w="72"></i></div><br><b>Physics</b><div class="bar"><i data-w="55"></i></div><br><b>Chemistry</b><div class="bar"><i data-w="40"></i></div></div>
+<div class="card"><b>Badges</b><h2>🏅🌟🚀</h2><b>Daily challenge</b><p>Solve 3 algebra problems</p><button class="btn pri" onclick="pg('quiz')">Go</button></div></div>
+<h3>Recommended</h3><div class="row"><span class="chip">Newton's laws</span><span class="chip">Balancing equations</span><span class="chip">Factorisation</span></div></div>
+
+<div class="pg" id="p-tutor"><h2>AI Tutor</h2><span class="tag">Live AI — backend must be running on port 8000</span>
+<div class="row"><select id="ts"><option>Mathematics</option><option>Physics</option><option>Chemistry</option></select><select id="tl"><option>English</option><option>Telugu</option><option>Hindi</option></select><select id="tv"><option>Simple</option><option>Standard</option><option>Detailed</option></select></div>
+<div class="card"><div class="chat" id="chat"><div class="msg ai">Hi! I'm your tutor 👋 Ask me anything.</div></div>
+<div class="row"><span class="chip" onclick="ask('Explain quadratic equations')">Explain quadratic equations</span><span class="chip" onclick="ask('What is Newton\'s second law?')">Newton's second law</span></div>
+<div style="display:flex;gap:8px"><textarea id="ti" rows="2" maxlength="500" placeholder="Type your question…"></textarea><button class="btn pri" style="flex:none" onclick="ask()">Send</button></div>
+<div class="row"><button class="btn sec" onclick="speak()">🔊 Read</button><button class="btn sec" onclick="copyA()">📋 Copy</button><button class="btn sec" onclick="clr()">🗑 Clear</button></div></div></div>
+
+
+<div class="pg" id="p-quiz"><h2>Practice Quiz</h2><div class="card" id="qz"></div></div>
+
+<div class="pg" id="p-prog"><h2>Learning Progress</h2><div class="grid"><div class="card"><b>Weekly activity (min)</b><div id="wk" style="display:flex;gap:8px;align-items:end;height:120px;margin-top:10px"></div></div><div class="card"><b>Strong</b><p>Algebra, Motion</p><b>Needs work</b><p>Acids & bases</p></div></div></div>
+
+<div class="pg" id="p-ach"><h2>Achievements</h2><div class="grid"><div class="card">🏅 First Quiz</div><div class="card">🔥 5-day streak</div><div class="card">🚀 10 lessons</div></div></div>
+
+<div class="pg" id="p-set"><h2>Settings & Privacy</h2><div class="card"><p id="prof"></p><button class="btn sec" onclick="delAcc()">Delete my account & data</button><div class="err" id="serr"></div></div></div>
+</div></div></div>
+
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const API='http://127.0.0.1:8000'; // backend address
+const mem={};const ls={get(k){try{return localStorage.getItem(k)}catch(e){return mem[k]||null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){mem[k]=v}}};
+const ss={get(k){try{return sessionStorage.getItem(k)}catch(e){return mem['s'+k]||null}},set(k,v){try{sessionStorage.setItem(k,v)}catch(e){mem['s'+k]=v}},del(k){try{sessionStorage.removeItem(k)}catch(e){delete mem['s'+k]}}};
+const users=()=>{try{return JSON.parse(ls.get('lm_users')||'{}')}catch(e){return{}}};
+let me=null,idle;
+// ripple on every button
+document.addEventListener('click',e=>{const b=e.target.closest('.btn');if(!b)return;const r=document.createElement('span'),d=Math.max(b.clientWidth,b.clientHeight),x=b.getBoundingClientRect();r.className='rip';r.style.cssText=`width:${d}px;height:${d}px;left:${e.clientX-x.left-d/2}px;top:${e.clientY-x.top-d/2}px`;b.appendChild(r);setTimeout(()=>r.remove(),600)});
+function go(v){$$('.view').forEach(x=>x.classList.remove('on'));$('#v-'+v).classList.add('on');scrollTo(0,0);if(v==='home')io()}
+// scroll reveal
+function io(){const o=new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting&&e.target.classList.add('v')),{threshold:.15});$$('.rv').forEach(x=>o.observe(x))}io();
+// ---- security helpers ----
+const b64=u=>btoa(String.fromCharCode(...u));const unb=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
+async function hash(pw,salt){const k=await crypto.subtle.importKey('raw',new TextEncoder().encode(pw),'PBKDF2',false,['deriveBits']);return b64(new Uint8Array(await crypto.subtle.deriveBits({name:'PBKDF2',salt,iterations:150000,hash:'SHA-256'},k,256)))}
+function strength(p){let s=0;if(p.length>=10)s++;if(/[a-z]/.test(p)&&/[A-Z]/.test(p))s++;if(/\d/.test(p))s++;if(/[^A-Za-z0-9]/.test(p))s++;return s}
+$('#rp').oninput=e=>{const s=strength(e.target.value),m=$('#mt');m.style.width=s*25+'%';m.style.background=['#EF4444','#EF4444','#F59E0B','#10B981','#059669'][s];$('#mtt').textContent=['Too weak','Weak','Fair','Good','Strong'][s]};
+$('#ra').onchange=e=>$('#gw').style.display=e.target.value==='u13'?'block':'none';
+const em=/^[^\s@]{1,64}@[^\s@]+\.[^\s@]{2,}$/;
+async function register(){const E=$('#rerr');E.textContent='';const n=$('#rn').value.trim(),e=$('#re').value.trim().toLowerCase(),p=$('#rp').value,u=$('#ra').value,ge=$('#rge').value.trim().toLowerCase();
+if(n.length<2)return E.textContent='Please enter your name.';if(!em.test(e))return E.textContent='Enter a valid email.';
+if(u==='u13'&&(!em.test(ge)||ge===e))return E.textContent='A different parent/guardian email is required under 13.';
+if(strength(p)<4)return E.textContent='Password must be 10+ chars with upper, lower, number and symbol.';
+if(p.toLowerCase().includes(e.split('@')[0]))return E.textContent='Password must not contain your email name.';
+if(p!==$('#rc').value)return E.textContent='Passwords do not match.';if(!$('#rk').checked)return E.textContent='Please accept the privacy terms.';
+const all=users();if(all[e])return E.textContent='Could not create account. Try logging in.';
+const salt=crypto.getRandomValues(new Uint8Array(16));
+all[e]={name:n,grade:$('#rg').value,age:u,lang:$('#rl').value,school:$('#rs').value.trim().slice(0,80),guardian:ge||'',salt:b64(salt),hash:await hash(p,salt)};
+ls.set('lm_users',JSON.stringify(all));$('#rp').value=$('#rc').value='';const {salt:_s,hash:_h,...pub}=all[e];me={email:e,...pub};ss.set('lm_s',e);enter()}
+async function login(){const B=$('#lb');if(B.disabled)return;B.disabled=true;B.textContent='Signing in…';try{await loginCore()}catch(e){$('#lerr').textContent='Something went wrong. Please try again.'}B.disabled=false;B.textContent='Log In'}
+async function loginCore(){const E=$('#lerr'),e=$('#le').value.trim().toLowerCase(),p=$('#lp').value;const lk=+(ls.get('lm_lock')||0);
+if(Date.now()<lk)return E.textContent=`Too many attempts. Wait ${Math.ceil((lk-Date.now())/1000)}s.`;
+if(!Object.keys(users()).length)return E.textContent='No account is saved in this browser yet. Please create an account first.';
+const u=users()[e];const ok=u&&await hash(p,unb(u.salt))===u.hash;
+if(!ok){const f=+(ls.get('lm_fail')||0)+1;ls.set('lm_fail',f);if(f>=5){ls.set('lm_lock',Date.now()+60000);ls.set('lm_fail',0)}return E.textContent='Incorrect email or password.'}
+ls.set('lm_fail',0);$('#lp').value='';E.textContent='';const {salt:_s,hash:_h,...pub}=u;me={email:e,...pub};ss.set('lm_s',e);enter()}
+function logout(){me=null;ss.del('lm_s');clearTimeout(idle);go('home')}
+function delAcc(){const a=users();delete a[me.email];ls.set('lm_users',JSON.stringify(a));logout()}
+function bump(){clearTimeout(idle);idle=setTimeout(()=>{if(me){logout();alert('Session expired for your safety. Please log in again.')}},1800000)}
+['click','keydown','touchstart'].forEach(ev=>addEventListener(ev,()=>me&&bump()));
+// ---- app ----
+const pages=[['dash','🏠','Dashboard'],['tutor','🤖','AI Tutor'],['quiz','🎯','Practice Quizzes'],['up','📎','Upload & Ask'],['prog','📈','Learning Progress'],['ach','🏆','Achievements'],['set','⚙️','Settings']];
+$('#nav').innerHTML=pages.map(p=>`<button class="nv" data-p="${p[0]}" onclick="pg('${p[0]}')"><span>${p[1]}</span><span class="lb">${p[2]}</span></button>`).join('');
+function pg(k){const up=k==='up';if(up)k='dash';$$('.pg').forEach(x=>x.classList.remove('on'));$('#p-'+k).classList.add('on');$$('.nv').forEach(b=>b.classList.toggle('on',b.dataset.p===k));$('#side').classList.remove('open');
+if(k==='dash'){$$('.bar i').forEach(i=>{i.style.width='0';setTimeout(()=>i.style.width=i.dataset.w+'%',60)});let n=0;const r=$('#rg1'),t=setInterval(()=>{n+=2;r.style.setProperty('--v',n);r.firstChild.textContent=n+'%';if(n>=70)clearInterval(t)},20)}
+if(k==='prog')$('#wk').innerHTML=[30,45,20,60,50,35,70].map((v,i)=>`<div style="flex:1;text-align:center;font-size:11px"><div style="height:${v}px;background:linear-gradient(var(--p),var(--a));border-radius:6px"></div>${'MTWTFSS'[i]}</div>`).join('');
+if(k==='quiz')qstart();if(up)setTimeout(()=>$('#up').scrollIntoView({behavior:'smooth',block:'center'}),150)}
+function enter(){go('app');$('#wb').textContent='Welcome back, '+me.name.split(' ')[0]+'!';$('#prof').innerHTML=`<b>${esc(me.name)}</b><br>${esc(me.email)}<br>Grade ${esc(me.grade)} · ${esc(me.lang)}`;$('#tl').value=['English','Telugu','Hindi'].includes(me.lang)?me.lang:'English';pg('dash');bump()}
+
+// ---- AI Tutor chat (connected to backend /api/chat) ----
+async function ask(q) {
+    q = (q || $('#ti').value).trim();
+    if (!q || q.length > 2000) return;
+
+    const c = $('#chat');
+    c.insertAdjacentHTML('beforeend', `<div class="msg me">${esc(q)}</div>`);
+    $('#ti').value = '';
+
+    const answer = document.createElement('div');
+    answer.className = 'msg ai';
+    answer.textContent = 'Thinking...';
+    c.appendChild(answer);
+
+    try {
+        const response = await fetch(API + '/api/chat', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                question: q,
+                subject: $('#ts').value,
+                grade: me?.grade || '10',
+                language: $('#tl').value,
+                level: $('#tv').value
+            })
+        });
+
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.detail || 'AI request failed');
+
+        answer.textContent = data.answer;
+    } catch (error) {
+        console.error(error);
+        answer.textContent = 'AI connection failed. Check the backend server.';
+    }
+
+    c.scrollTop = c.scrollHeight;
+}
+
+const lastA=()=>[...$$('.msg.ai')].pop()?.textContent||'';
+function speak(){try{speechSynthesis.speak(new SpeechSynthesisUtterance(lastA()))}catch(e){}}
+function copyA(){try{navigator.clipboard.writeText(lastA())}catch(e){}}
+function clr(){$('#chat').innerHTML='<div class="msg ai">Chat cleared.</div>'}
+
+// ---- quiz ----
+const Q=[["What is 3² + 4²?",["25","49","12"],0,"9 + 16 = 25."],["Unit of force?",["Joule","Newton","Watt"],1,"Force is measured in Newtons."],["Chemical symbol of water?",["H₂O","CO₂","O₂"],0,"Two hydrogen, one oxygen."],["Solve x²=49 (positive)",["6","7","8"],1,"√49 = 7."],["F = ma. m=2, a=5, F=?",["7","10","3"],1,"2×5 = 10 N."]];let qi=0,sc=0,wrong=[];
+function qstart(){qi=sc=0;wrong=[];qshow()}
+function qshow(){const z=$('#qz');if(qi>=Q.length){const pct=sc/Q.length*100;z.innerHTML=`<h2>${pct>=60?'🎉 Great job!':'💪 Keep going!'}</h2><h1>${sc}/${Q.length}</h1><p>+${sc*10} points</p>${wrong.length?`<p>Review: ${wrong.map(esc).join(' · ')}</p>`:''}<button class="btn pri" onclick="qstart()">Practise Again</button>`;if(pct>=60)confetti();return}
+const q=Q[qi];z.innerHTML=`<div class="bar"><i style="width:${qi/Q.length*100}%"></i></div><p><span class="tag">Question ${qi+1}/${Q.length}</span></p><h3>${esc(q[0])}</h3>`+q[1].map((o,i)=>`<button class="opt" onclick="qans(${i},this)">${esc(o)}</button>`).join('')+'<p id="fb"></p>'}
+function qans(i,b){const q=Q[qi];if($('#qz').dataset.l)return;$('#qz').dataset.l=1;const ok=i===q[2];b.classList.add(ok?'good':'bad');if(ok)sc++;else{wrong.push(q[0]);$$('.opt')[q[2]].classList.add('good')}$('#fb').textContent=(ok?'✅ Correct! ':'❌ Not quite. ')+q[3];setTimeout(()=>{delete $('#qz').dataset.l;qi++;qshow()},1800)}
+function confetti(){const c=$('#cf'),x=c.getContext('2d');c.width=innerWidth;c.height=innerHeight;if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;const P=[...Array(120)].map(()=>({x:Math.random()*c.width,y:-20,v:2+Math.random()*4,r:4+Math.random()*5,c:['#38BDF8','#2563EB','#A78BFA','#FBBF24'][Math.random()*4|0]}));let f=0;(function d(){x.clearRect(0,0,c.width,c.height);P.forEach(p=>{p.y+=p.v;x.fillStyle=p.c;x.fillRect(p.x,p.y,p.r,p.r)});if(f++<140)requestAnimationFrame(d);else x.clearRect(0,0,c.width,c.height)})()}
+
+// ---- Upload & Ask (connected to backend /api/solve) ----
+const dz=$('#dz');
+let UF=[];const MAXF=4;
+const kind=f=>/^image\/(png|jpeg|webp)$/.test(f.type)?(f.size<=5e6?'image':'big'):/^video\//.test(f.type)?(f.size<=5e7?'video':'big'):(/\.(txt|md|csv|json|py|js|html)$/i.test(f.name)||f.type==='text/plain')?(f.size<=2e5?'text':'big'):'bad';
+function addFiles(list){const E=$('#ierr');E.textContent='';for(const f of list){if(UF.length>=MAXF){E.textContent='Maximum 4 files.';break}const k=kind(f);if(k==='bad'){E.textContent='"'+f.name+'" is not supported. Use images, videos or text files (for a PDF, upload a screenshot).';continue}if(k==='big'){E.textContent='"'+f.name+'" is too large.';continue}UF.push({f,k})}$('#fi').value='';showFiles()}
+function showFiles(){const p=$('#pv');p.textContent='';UF.forEach((x,i)=>{const d=document.createElement('div');d.className='card';d.style.cssText='padding:8px;flex:none;width:130px;text-align:center;font-size:12px';let m;if(x.k==='image'){m=document.createElement('img');m.src=URL.createObjectURL(x.f)}else if(x.k==='video'){m=document.createElement('video');m.src=URL.createObjectURL(x.f);m.muted=true}else{m=document.createElement('div');m.textContent='📄';m.style.fontSize='34px'}m.style.cssText+=';max-width:100%;max-height:80px;border-radius:8px';const n=document.createElement('div');n.textContent=x.f.name.slice(0,18);const b=document.createElement('button');b.textContent='✕ Remove';b.className='chip';b.onclick=()=>{UF.splice(i,1);showFiles()};d.append(m,n,b);p.append(d)})}
+// grab 4 evenly spaced frames from a video so the AI can look at it
+function frames(file){return new Promise((res,rej)=>{const v=document.createElement('video'),u=URL.createObjectURL(file);v.muted=true;v.preload='auto';v.src=u;v.onerror=()=>rej(new Error('video'));v.onloadedmetadata=async()=>{try{if(!v.videoWidth)throw 0;const c=document.createElement('canvas'),sc=Math.min(1,640/v.videoWidth);c.width=v.videoWidth*sc;c.height=v.videoHeight*sc;const out=[];for(let i=0;i<4;i++){await new Promise(r=>{v.onseeked=r;v.currentTime=(v.duration||1)*(i+.5)/4});c.getContext('2d').drawImage(v,0,0,c.width,c.height);out.push(await new Promise(r=>c.toBlob(r,'image/jpeg',.7)))}res(out)}catch(e){rej(e)}finally{URL.revokeObjectURL(u)}}})}
+// make big phone photos smaller (max 1280px) so the backend/Groq accepts them
+async function shrink(file){
+  const bmp=await createImageBitmap(file);
+  const s=Math.min(1,1280/Math.max(bmp.width,bmp.height));
+  const c=document.createElement('canvas');
+  c.width=Math.round(bmp.width*s);c.height=Math.round(bmp.height*s);
+  c.getContext('2d').drawImage(bmp,0,0,c.width,c.height);
+  return new Promise(r=>c.toBlob(r,'image/jpeg',.8));
+}
+async function solve(){
+  const E=$('#ierr'),A=$('#ua'),B=$('#ub'),q=$('#uq').value.trim();
+  E.textContent='';
+  if(!UF.length&&!q)return E.textContent='Upload a file or type a question first.';
+  B.disabled=true;B.textContent='Working…';A.style.display='block';
+  A.innerHTML='<span class="dots"><span></span><span></span><span></span></span> Your AI tutor is thinking...';
+  try{
+    const fd=new FormData();
+    fd.append('question',q);
+    fd.append('subject',$('#us').value);
+    fd.append('grade',me?.grade||'10');
+    fd.append('language',me?.lang||'English');
+    let n=0;
+    for(const {f,k} of UF){
+      if(k==='image'){fd.append('files',await shrink(f),'image'+(++n)+'.jpg')}
+      else if(k==='video'){try{const fr=await frames(f);fr.forEach(b=>fd.append('files',b,'frame'+(++n)+'.jpg'))}catch(e){}}
+      else fd.append('files',f,f.name);
+    }
+    const res=await fetch(API+'/api/solve',{method:'POST',body:fd});
+    const data=await res.json();
+    if(!res.ok)throw new Error(data.detail||'failed');
+    A.textContent=data.answer;
+  }catch(e){
+    console.error(e);
+    A.style.display='none';
+    E.textContent='AI connection failed. Check the backend terminal for the error.';
+  }
+  B.disabled=false;B.textContent='Get Answer';
+}
+$('#fi').onchange=()=>addFiles([...$('#fi').files]);
+dz.onclick=()=>$('#fi').click();
+dz.onkeydown=e=>(e.key==='Enter'||e.key===' ')&&$('#fi').click();
+dz.ondragover=e=>e.preventDefault();
+dz.ondrop=e=>{e.preventDefault();addFiles([...e.dataTransfer.files])};
+
+['le','lp'].forEach(i=>$('#'+i).addEventListener('keydown',e=>e.key==='Enter'&&login()));
+// show/hide password toggles (login + registration)
+['rp','rc','lp'].forEach(id=>{const i=$('#'+id),w=document.createElement('div');w.className='pw';i.before(w);w.append(i);const b=document.createElement('button');b.type='button';b.className='eye';b.textContent='👁️';b.setAttribute('aria-label','Show password');b.setAttribute('aria-pressed','false');b.onclick=()=>{const s=i.type==='password';i.type=s?'text':'password';b.textContent=s?'🙈':'👁️';b.setAttribute('aria-label',s?'Hide password':'Show password');b.setAttribute('aria-pressed',String(s));i.focus()};w.append(b)});
+// safety: hide passwords again if the tab is switched away
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)return;$$('.pw input').forEach(i=>{i.type='password'});$$('.eye').forEach(b=>{b.textContent='👁️';b.setAttribute('aria-pressed','false')})});
+// warn if the browser cannot keep saved data (accounts would vanish on reload)
+const persist=(()=>{try{localStorage.setItem('lm_t','1');return localStorage.getItem('lm_t')==='1'}catch(e){return false}})();
+if(!persist)['v-login','v-reg'].forEach(id=>{const n=document.createElement('div');n.className='note';n.style.cssText='background:#FEF3C7;color:#92400E;margin:0 0 12px';n.textContent='⚠️ This browser is blocking saved data, so accounts only last until the page reloads. Allow site storage or use a normal (non-private) window.';$('#'+id+' .card').prepend(n)});
+// restore session
+(()=>{const e=ss.get('lm_s'),u=e&&users()[e];if(u){me={email:e,...u};enter()}})();
+</script></body></html>
