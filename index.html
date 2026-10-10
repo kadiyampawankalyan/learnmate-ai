@@ -127,7 +127,7 @@ input:focus,select:focus,textarea:focus{outline:0;border-color:var(--p);box-shad
 <script>
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const API='http://127.0.0.1:8000'; // backend address
+const API='https://learnmate-ai-xis2.onrender.com'; // backend address
 const mem={};const ls={get(k){try{return localStorage.getItem(k)}catch(e){return mem[k]||null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){mem[k]=v}}};
 const ss={get(k){try{return sessionStorage.getItem(k)}catch(e){return mem['s'+k]||null}},set(k,v){try{sessionStorage.setItem(k,v)}catch(e){mem['s'+k]=v}},del(k){try{sessionStorage.removeItem(k)}catch(e){delete mem['s'+k]}}};
 const users=()=>{try{return JSON.parse(ls.get('lm_users')||'{}')}catch(e){return{}}};
